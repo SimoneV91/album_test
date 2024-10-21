@@ -18,7 +18,7 @@ Segui questi semplici passaggi per installare e avviare l'applicazione sul tuo a
 git clone https://github.com/SimoneV91/album-nidek.git
 
 # Vai nella directory del progetto
-cd album-nidek
+cd album_test
 
 # Installa le dipendenze
 npm install
