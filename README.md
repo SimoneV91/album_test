@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Album Nidek è un'applicazione web che permette di visualizzare e gestire album fotografici, con funzionalità di ricerca e ordinamento. L'app consente di sfogliare i titoli degli album e visualizzare il proprietario, offrendo una navigazione interattiva verso i dettagli degli album, inclusa una galleria fotografica con titoli.
 
 ## Funzionalità
