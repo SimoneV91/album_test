@@ -1,5 +1,5 @@
-import SearchBar from "./Components/SearchBar";
-import DataTable from "./Components/Table";
+import SearchBar from "../Components/SearchBar";
+import DataTable from "../Components/Table";
 
 const Home = () => {
   return (

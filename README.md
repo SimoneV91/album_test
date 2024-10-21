@@ -14,7 +14,7 @@ Album Nidek è un'applicazione web che permette di visualizzare e gestire album 
 
 Segui questi semplici passaggi per installare e avviare l'applicazione sul tuo ambiente locale:
 
-```bash
+````bash
 # Clona il repository
 git clone https://github.com/SimoneV91/album-nidek.git
 
@@ -29,12 +29,16 @@ npm start
 
 L'app sarà disponibile all'indirizzo http://localhost:3000 di default.
 
+Verione Node.js: v16.14.0
+
 Tecnologie utilizzate
 React: Per la creazione dell'interfaccia utente dinamica e componentizzata.
 TypeScript: Per una tipizzazione sicura e robusta del codice JavaScript.
 React Router: Per la gestione della navigazione all'interno dell'app.
 Tailwind CSS: Per lo styling flessibile e reattivo dell'interfaccia.
 Fetch API: Per effettuare chiamate HTTP e ottenere i dati da servizi REST.
+LocalStorage: per la memorizzazione di alcuni dati nello storage
+
 =======
 # React + TypeScript + Vite
 
@@ -61,7 +65,7 @@ export default tseslint.config({
     },
   },
 })
-```
+````
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
 - Optionally add `...tseslint.configs.stylisticTypeChecked`
@@ -69,11 +73,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -82,8 +86,9 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```
->>>>>>> 86dc08f (Primo commit: aggiunti file del progetto)
+
+> > > > > > > 86dc08f (Primo commit: aggiunti file del progetto)

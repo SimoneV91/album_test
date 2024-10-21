@@ -15,6 +15,3 @@ const Header = () => {
   );
 };
 export default Header;
-//     <div className="flex items-center w-full justify-between h-14 px-3 object-top border-b-4 border-colorNidek">
-//      className="flex items-center w-screen justify-between h-14 px-3 object-top
-//    absolute inset-x-0 top-0 border-b-4 border-colorNidek"

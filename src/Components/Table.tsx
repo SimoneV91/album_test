@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDataContext } from "../../Context/Context";
+import { useDataContext } from "../Context/Context";
+
 interface Users {
   address: {
     street: string;
@@ -40,7 +41,8 @@ const DataTable = () => {
   const [users, setUsers] = useState<Users[]>([]);
   const [albums, setAlbums] = useState<Albums[]>([]);
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const { data, setData, filteredData, setFilteredData } = useDataContext();
+  const { data, setData, filteredData, setFilteredData, isSearching } =
+    useDataContext();
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc"); // Stato per ordinamento
   const navigate = useNavigate();
 
@@ -89,32 +91,36 @@ const DataTable = () => {
   }, []);
 
   // Unisco album, utenti e foto in base ai rispettivi ID
-
   useEffect(() => {
     if (users.length > 0 && albums.length > 0 && photos.length > 0) {
       const mergedData = albums.map((album) => {
+        // trova gli user gli album
+
         const user = users.find((user) => user.id === album.userId);
+
         // Trova tutte le foto che appartengono a questo album
-        const albumPhotos = photos.filter((photo) => {
-          photo.albumId === album.id;
-        });
+
+        const AlbumPhotos = photos.filter(
+          (photo) => photo.albumId === album.id
+        );
 
         return {
           id: album.id,
           albumTitle: album.title,
           userName: user ? user.name : "Sconosciuto",
-          photos:
-            albumPhotos.length > 0
-              ? albumPhotos
+          photos: AlbumPhotos,
+
+          /* Photos.length > 0
+              ? Photos
               : [
                   {
                     albumId: 0,
                     id: 0,
                     thumbnailUrl: "",
-                    title: "Nessuna foto disponibile",
-                    url: "Nessuna foto disponibile",
+                    title: "", // Valore placeholder
+                    url: "", // Valore placeholder
                   },
-                ],
+                ],*/
         };
       });
 
@@ -122,7 +128,7 @@ const DataTable = () => {
     }
   }, [users, albums, photos]);
 
-  const rowToDisplay = filteredData.length > 0 ? filteredData : data;
+  const rowToDisplay = isSearching ? filteredData : data;
 
   // Funzione di ordinamento crescente o decrescente
   const handleSort = () => {
@@ -152,43 +158,45 @@ const DataTable = () => {
 
   const handleRowClick = (id: number) => {
     setFilteredData([]);
-    navigate(`/details/${id}`, {
-      state: { idAlbum: id },
-    });
+    navigate(`/details/${id}`);
   };
 
   return (
     <div className="overflow-x-auto overflow-y-auto rounded-lg p-4 max-h-96 sm:max-h-84 md:max-h-96 lg:max-h-[25rem] xl:max-h-[30rem] ">
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200">
-            <th
-              className="py-2 px-4 text-left cursor-pointer"
-              onClick={handleSort}
-            >
-              {sortOrder === "asc" ? " ▲" : " ▼"} {/* Freccetta che cambia */}
-              Titolo Album
-            </th>
-            <th className="py-2 px-4 text-left">Nome Utente</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowToDisplay.map((row, index) => (
-            <tr
-              key={index}
-              onClick={() => handleRowClick(row.id)}
-              className="hover:bg-gray-100 cursor-pointer"
-            >
-              <td className="py-2 px-4 border-b border-gray-300 text-left">
-                {row.albumTitle}
-              </td>
-              <td className="py-2 px-4 border-b border-gray-300 text-left">
-                {row.userName}
-              </td>
+      {rowToDisplay.length > 0 ? (
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200">
+              <th
+                className="py-2 px-4 text-left cursor-pointer"
+                onClick={handleSort}
+              >
+                {sortOrder === "asc" ? " ▲" : " ▼"} {/* Freccetta che cambia */}
+                Titolo Album
+              </th>
+              <th className="py-2 px-4 text-left">Nome Utente</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rowToDisplay.map((row, index) => (
+              <tr
+                key={index}
+                onClick={() => handleRowClick(row.id)}
+                className="hover:bg-gray-100 cursor-pointer"
+              >
+                <td className="py-2 px-4 border-b border-gray-300 text-left">
+                  {row.albumTitle}
+                </td>
+                <td className="py-2 px-4 border-b border-gray-300 text-left">
+                  {row.userName}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        "Nessun risultato trovato"
+      )}
     </div>
   );
 };
